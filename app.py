@@ -27,7 +27,9 @@ df = load_data()
 
 st.header("1. Dataset Overview")
 st.write(f"Total users: **{len(df):,}**")
-st.dataframe(df.head())
+df_display = df.head().copy()
+df_display["converted"] = df_display["converted"].map({True: "Yes", False: "No"})
+st.dataframe(df_display)
 
 # ---------------------------------------------------------
 # Conversion rates by test group
