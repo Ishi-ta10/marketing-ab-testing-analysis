@@ -67,8 +67,9 @@ groupY = df[df["converted"] == True]["total ads"]
 lev_stat, lev_p = levene(groupN, groupY)
 st.write(f"Levene's test p-value: **{lev_p:.6f}**")
 equal_var = lev_p >= 0.05
-st.write(f"Equal variance assumption {'holds' if equal_var else 'does NOT hold'} — "
-         f"using {'standard' if equal_var else \"Welch's\"} t-test.")
+test_name = "standard" if equal_var else "Welch's"
+assumption_text = "holds" if equal_var else "does NOT hold"
+st.write(f"Equal variance assumption {assumption_text} — using {test_name} t-test.")
 
 t_stat, p_ttest = ttest_ind(groupN, groupY, equal_var=equal_var)
 st.write(f"t-statistic: **{t_stat:.2f}**, p-value: **{p_ttest:.6f}**")
